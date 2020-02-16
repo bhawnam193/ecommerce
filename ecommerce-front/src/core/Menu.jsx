@@ -11,15 +11,33 @@ const isActive = (history, path) => {
 }
 
 const Menu = ({ history }) => {
+
+    const { user } = isAuthenticated();
+
     return (
         <div>
 			<ul className="nav nav-tabs bg-primary">
 				<li className="nav-item">
 					<Link className="nav-link" to="/" style={isActive(history, '/')}>Home </Link>
 				</li>
+				{ user && user.role === 0 && (
+					<li className="nav-item">
+						<Link className="nav-link" to="/user/dashboard" style={isActive(history, '/user/dashboard')}>Dashboard </Link>
+					</li>
+				)}
 
-				{!isAuthenticated() && (
+				{user && user.role === 1 && (
+					<li className="nav-item">
+						<Link className="nav-link" to="/admin/dashboard" style={isActive(history, '/admin/dashboard')}>Dashboard </Link>
+					</li>
+				)}
+				
+
+				{!user && (
 					<Fragment>
+						<li className="nav-item">
+							<Link className="nav-link" to="/user/dashboard" style={isActive(history, '/user/dashboard')}>Dashboard </Link>
+						</li>
 						<li className="item">
 							<Link className="nav-link" to="/signin" style={isActive(history, '/signin')}>Sign in</Link>
 						</li>
@@ -29,7 +47,7 @@ const Menu = ({ history }) => {
 					</Fragment>
 				)}
 
-				{isAuthenticated() && (
+				{user && (
 					<li className="nav-item">
 						<span className="nav-link" to="/signup" style={{cursor: 'pointer', color: '#ffffff'}} onClick={ () => signout( () => {
 							history.push('/')
