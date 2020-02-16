@@ -28,12 +28,12 @@ const Signin = () => {
                     if (data.errors) {
                         setValues({ ...values, error: data.errors, success: false, loading: false });
                     } else {
-                    	authenticate(data, () => {
-                    		setValues({
-	                            ...values,
-	                            redirectToReferrer: true
-	                        });
-                    	});
+                        authenticate(data, () => {
+                            setValues({
+                                ...values,
+                                redirectToReferrer: true
+                            });
+                        });
                     }
                 }
             });
@@ -58,8 +58,8 @@ const Signin = () => {
     const showLoading = () =>
         loading && (
             <div className="alert alert-info" >
-				<h2>Loading...</h2>
-			</div>
+                <h2>Loading...</h2>
+            </div>
         )
 
 
@@ -72,28 +72,28 @@ const Signin = () => {
     const signInForm = () => {
         return (
             <form className="col-md-8 col-md-offset-2">
-	            
-	            <div className="form-group">
-	                <label className="text-muted">Email</label>
-	                <input type="email" onChange={handleChange('email')} className="form-control" value={email}/>
-	            </div>
+                
+                <div className="form-group">
+                    <label className="text-muted">Email</label>
+                    <input type="email" onChange={handleChange('email')} className="form-control" value={email}/>
+                </div>
 
-	            <div className="form-group">
-	                <label className="text-muted">Password</label>
-	                <input type="password" onChange={handleChange('password')} className="form-control" value={password}/>
-	            </div>
-	            <button onClick={clickSubmit} className="btn btn-primary">Submit</button>
-	        </form>
+                <div className="form-group">
+                    <label className="text-muted">Password</label>
+                    <input type="password" onChange={handleChange('password')} className="form-control" value={password}/>
+                </div>
+                <button onClick={clickSubmit} className="btn btn-primary">Submit</button>
+            </form>
         )
     };
 
     return (
         <Layout title="Sign In" description="Sign In for node-react E-commerce app">
-	        {showLoading()}
-	        {showError()}
-	        {signInForm()}
-	        {redirectUser()}
-	    </Layout>
+            {showLoading()}
+            {showError()}
+            {signInForm()}
+            {redirectUser()}
+        </Layout>
     )
 };
 
