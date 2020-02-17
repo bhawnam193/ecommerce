@@ -1,15 +1,15 @@
 import React from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
 
     const { user: { id, name, email, role } } = isAuthenticated();
 
     const userLinks = () => {
-    	return (
-    		<div className="card mb-5">
+        return (
+            <div className="card mb-5">
 				<h3 className="card-header">User Links</h3>
 				<ul className="list-group">
 					<li className="list-group-item">
@@ -20,12 +20,12 @@ const Dashboard = () => {
 					</li>
 				</ul>
 			</div>
-    	)
+        )
     };
 
     const userInfo = () => {
-    	return(
-    		<div className="card mb-5">
+        return (
+            <div className="card mb-5">
 				<h3 className="card-header">User Information</h3>
 				<ul className="list-group">
 					<li className="list-group-item">{name}</li>
@@ -33,18 +33,18 @@ const Dashboard = () => {
 					<li className="list-group-item">{role === 1 ? 'Admin' : 'Registered User'}</li>
 				</ul>
 			</div>
-    	)
+        )
     };
 
     const purchaseHistory = () => {
-    	return (
-    		<div className="card mb-5">
+        return (
+            <div className="card mb-5">
 				<h3 className="card-header">Purchase History</h3>
 				<ul className="list-group">
 					<li className="list-group-item">history</li>
 				</ul>
 			</div>
-    	)
+        )
     };
 
     return (
