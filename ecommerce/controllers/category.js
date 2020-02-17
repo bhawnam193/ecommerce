@@ -30,26 +30,20 @@ exports.categoryByID = (req, res, next, id) => {
 
 exports.create = (req, res) => {
 
-    if (req.body.name) {
-        try {
-            var sql = `INSERT INTO
-                          category (name)
-                        VALUES
-                          ('${req.body.name}')`;
-            con.query(sql, function(err, result) {
-                if (err) throw err;
-                return res.status(200).json({
-                    created: true
-                });
+    try {
+        var sql = `INSERT INTO
+                      category (name)
+                    VALUES
+                      ('${req.body.name}')`;
+        con.query(sql, function(err, result) {
+            if (err) throw err;
+            return res.status(200).json({
+                created: true
             });
-        } catch (err) {
-            return res.status(422).json({
-                errors: err.array()
-            });
-        }
-    } else {
-        return res.status(400).json({
-            errors: ['name is missing']
+        });
+    } catch (err) {
+        return res.status(422).json({
+            errors: err.array()
         });
     }
 };
