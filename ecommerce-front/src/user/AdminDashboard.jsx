@@ -39,10 +39,10 @@ const AdminDashboard = () => {
     return (
         <Layout title="Dashboard" description={`G'day ${name}!`}>
 			<div className="row">
-				<div className="col-3">
+				<div className="col-md-3">
 					{adminLinks()}
 				</div>
-				<div className="col-9">
+				<div className="col-md-9">
 					{adminInfo()}
 				</div>
 			</div>
