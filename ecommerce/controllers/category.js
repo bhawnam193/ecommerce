@@ -1,4 +1,5 @@
 const con = require('../db');
+const { validationResult } = require('express-validator');
 
 exports.categoryByID = (req, res, next, id) => {
 
@@ -29,6 +30,11 @@ exports.categoryByID = (req, res, next, id) => {
 };
 
 exports.create = (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
     try {
         var sql = `INSERT INTO
@@ -96,7 +102,7 @@ exports.remove = (req, res) => {
                 });
             } else {
                 return res.status(400).json({
-                    error: 'An error occured'
+                    errors: 'An error occured'
                 });
             }
         });
@@ -121,7 +127,7 @@ exports.list = (req, res) => {
                 });
             } else {
                 return res.status(400).json({
-                    error: 'An error occured'
+                    errors: 'An error occured'
                 });
             }
         });

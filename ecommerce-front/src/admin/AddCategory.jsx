@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
-import { Link } from 'react-router-dom';
 import { createCategory } from './apiAdmin';
 
 const AddCategory = () => {
     const [name, setName] = useState('');
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     //destructure user and token from localstorage
     const { user, token } = isAuthenticated();
@@ -21,13 +20,45 @@ const AddCategory = () => {
     const formSubmit = (event) => {
         event.preventDefault();
         setError('');
-        console.log('in funct')
-        setSuccess(false);
+        setSuccess('');
 
         //make api request to backend
         createCategory(user.id, token, {name})
-            .then(data => console.log(data))
+            .then(data => {
+            	if ( data.errors ) {
+            		setError(data.errors[0].msg);
+            	} else {
+            		if (data.created) {
+            			setSuccess('Category Created');
+            			setName('');
+            		}
+            	}
+            })
     }
+
+    const showError = () => {
+        if (error !== '') {
+            return (
+                <div className="alert alert-danger">
+                	<p>{error}</p>
+            </div>
+            )
+        } else {
+            return ''
+        }
+    };
+
+    const showSuccess = () => {
+        if (success !== '') {
+            return (
+                <div className="alert alert-success">
+                	<p>{success}</p>
+            </div>
+            )
+        } else {
+            return ''
+        }
+    };
 
     const newCategotyForm = () => {
         return (
@@ -45,6 +76,8 @@ const AddCategory = () => {
         <Layout title="Add a new Category" description={`G'day ${user.name}, ready to add a new category?`}>
     		<div className="row">
     			<div className="col-md-8 offset-md-2">
+    				{showError()}
+    				{showSuccess()}
     				{newCategotyForm()}
     			</div>
     		</div>

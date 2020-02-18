@@ -10,7 +10,7 @@ const { userByID } = require('../controllers/user');
 router.param('userID', userByID);
 router.param('categoryID', categoryByID);
 
-router.post('/category/create/:userID',categoryCreateValidator, requireSignIn, isAuth, isAdmin, create);
+router.post('/category/create/:userID', categoryCreateValidator, requireSignIn, isAuth, isAdmin, create);
 
 router.get('/category/:categoryID', read);
 

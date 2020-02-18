@@ -96,7 +96,7 @@ exports.isAuth = (req, res, next) => {
 
     if (!user) {
         return res.status(403).json({
-            error: "access denied"
+            errors: [ {msg: "access denied"}]
         });
     }
     next();
@@ -105,7 +105,7 @@ exports.isAuth = (req, res, next) => {
 exports.isAdmin = (req, res, next) => {
     if (req.profile.role === 0) {
         return res.status(403).json({
-            error: 'Admin resource! Access denied'
+            errors: [ {msg: 'Admin resource! Access denied'} ]
         });
     }
     next();
