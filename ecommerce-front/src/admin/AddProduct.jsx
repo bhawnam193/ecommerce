@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
-import { createProduct } from './apiAdmin';
+import { createProduct, getCategories } from './apiAdmin';
 
 const AddProduct = () => {
     const [values, setValues] = useState({
@@ -36,8 +36,21 @@ const AddProduct = () => {
         error
     } = values;
 
+    //load categories and set form data
+    const init = () => {
+        getCategories()
+        .then( data => {
+            if(data.errors) {
+                setValues({...values, error: data.errors[0].msg});
+            }
+            else {
+                setValues({ ...values, categories: data.categories, formData: new FormData() });
+            }
+        })
+    }
+
     useEffect(() => {
-        setValues({ ...values, formData: new FormData() });
+        init();
     }, []);
 
     //destructure user and token from localstorage
@@ -125,9 +138,9 @@ const AddProduct = () => {
                     <label className="text-muted">Category</label>
                     <select className="form-control" onChange={handleChange('category')} value={category}>
                         <option value="">Select</option>
-                        <option value="11">new test</option>
-                        <option value="10">test</option>
-                        <option value="9">dfcsdcsd</option>
+                        {categories.map((val, i) => {
+                            return <option key={i} value={val.ID}>{val.name}</option>
+                        })}
                     </select>
                 </div>
 
