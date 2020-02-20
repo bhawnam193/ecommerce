@@ -20,7 +20,7 @@ exports.productByID = (req, res, next, id) => {
                 next();
             } else {
                 return res.status(400).json({
-                    error: 'No Product Found'
+                    errors: [{ msg: 'No Product Found' }]
                 });
             }
         });
@@ -40,23 +40,23 @@ exports.create = (req, res) => {
     form.parse(req, (err, fields, files) => {
         if (err) {
             return res.status(400).json({
-                error: 'Image could not be uploaded'
+                errors: [{ msg: 'Image could not be uploaded' }]
             });
         }
         //1mb size max size of file
-        if (files.Image.size > 1000000) {
+        if (files.image.size > 1000000) {
             return res.status(400).json({
-                error: 'Image size exceeds 1MB'
+                errors: [{ msg: 'Image size exceeds 1MB' }]
             });
         }
-        var filename = files.Image.path.replace(/\\\\/g, '\\').replace(appRoot, '').replace(/\\/g, "/");
+        var filename = files.image.path.replace(/\\\\/g, '\\').replace(appRoot, '').replace(/\\/g, "/");
 
         //check for all fields
         const { name, description, price, category, quantity, shipping } = fields;
 
         if (!name || !description || !price || !category || !quantity || !shipping) {
             return res.status(400).json({
-                error: 'All fields are required'
+                errors: [{ masg: 'All fields are required' }]
             });
         }
 
@@ -122,7 +122,7 @@ exports.remove = (req, res) => {
                 });
             } else {
                 return res.status(400).json({
-                    error: 'An error occured'
+                    errors: [{ msg: 'An error occured' }]
                 });
             }
         });
@@ -146,12 +146,12 @@ exports.update = (req, res) => {
             });
         }
         //1mb size max size of file
-        if (files.Image.size > 1000000) {
+        if (files.image.size > 1000000) {
             return res.status(400).json({
                 error: 'Image size exceeds 1MB'
             });
         }
-        var filename = files.Image.path.replace(/\\\\/g, '\\').replace(appRoot, '').replace(/\\/g, "/");
+        var filename = files.image.path.replace(/\\\\/g, '\\').replace(appRoot, '').replace(/\\/g, "/");
 
         //check for all fields
         const { name, description, price, category, quantity, shipping } = fields;
@@ -172,7 +172,7 @@ exports.update = (req, res) => {
                           description = '${description}',
                           price = ${price},
                           category = ${category},
-                          quantity = ${category},
+                          quantity = ${quantity},
                           image = '${filename}',
                           shipping = ${shipping}
                         WHERE
@@ -223,7 +223,7 @@ exports.list = (req, res) => {
                 });
             } else {
                 return res.status(400).json({
-                    error: 'No Product Found'
+                    errors: 'No Product Found'
                 });
             }
         });
@@ -294,7 +294,7 @@ exports.listCategories = (req, res) => {
                 });
             } else {
                 return res.status(400).json({
-                    error: 'No Category Found'
+                    errors: 'No Category Found'
                 });
             }
         });

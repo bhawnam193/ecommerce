@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
 import { createCategory } from './apiAdmin';
@@ -23,18 +24,28 @@ const AddCategory = () => {
         setSuccess('');
 
         //make api request to backend
-        createCategory(user.id, token, {name})
+        createCategory(user.id, token, { name })
             .then(data => {
-            	if ( data.errors ) {
-            		setError(data.errors[0].msg);
-            	} else {
-            		if (data.created) {
-            			setSuccess('Category Created');
-            			setName('');
-            		}
-            	}
+                if (data.errors) {
+                    setError(data.errors[0].msg);
+                } else {
+                    if (data.created) {
+                        setSuccess('Category Created');
+                        setName('');
+                    }
+                }
             })
     }
+
+    const goBack = () => {
+        return (
+            <div className="mt-5">
+    			<Link to="/admin/dashboard" className="text-warning">
+    				Go Back to Dashboard
+    			</Link>
+    		</div>
+        )
+    };
 
     const showError = () => {
         if (error !== '') {
@@ -79,6 +90,7 @@ const AddCategory = () => {
     				{showError()}
     				{showSuccess()}
     				{newCategotyForm()}
+    				{goBack()}
     			</div>
     		</div>
     	</Layout>
