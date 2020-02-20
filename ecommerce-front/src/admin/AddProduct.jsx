@@ -123,7 +123,8 @@ const AddProduct = () => {
 
                 <div className="form-group" >
                     <label className="text-muted">Category</label>
-                    <select onChange={handleChange('category')}>
+                    <select className="form-control" onChange={handleChange('category')} value={category}>
+                        <option value="">Select</option>
                         <option value="11">new test</option>
                         <option value="10">test</option>
                         <option value="9">dfcsdcsd</option>
@@ -137,7 +138,8 @@ const AddProduct = () => {
 
                 <div className="form-group" >
                     <label className="text-muted">Shipping</label>
-                    <select onChange={handleChange('shipping')}>
+                    <select className="form-control" onChange={handleChange('shipping')} value={shipping}>
+                        <option value="">Select</option>
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select>
@@ -162,6 +164,7 @@ const AddProduct = () => {
                     {showSuccess()}
                     {newProductForm()}
                     {goBack()}
+                    {console.log(formData)}
                 </div>
             </div>
         </Layout>

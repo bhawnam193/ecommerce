@@ -75,11 +75,11 @@ exports.create = (req, res) => {
                           (
                             '${name}',
                             '${description}',
-                            ${price},
+                            ${parseInt(price)},
                             ${category},
-                            ${quantity},
+                            ${parseInt(quantity)},
                             '${filename}',
-                            ${shipping}
+                            ${parseInt(shipping)}
                           )`;
 
             con.query(sql, function(err, result) {
