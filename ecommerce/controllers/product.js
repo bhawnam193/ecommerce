@@ -33,6 +33,11 @@ exports.productByID = (req, res, next, id) => {
 
 exports.create = (req, res) => {
 
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //     return res.status(422).json({ errors: errors.array() });
+    // }
+
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
     form.uploadDir = appRoot + '/uploads/products';

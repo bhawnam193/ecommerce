@@ -6,7 +6,9 @@
 .nav :hover {
     border-radius: 0;
 }
-
+p:last-child:not(.lead) {
+    margin-bottom: 0;
+}
 /**
 * Product image on card
 */

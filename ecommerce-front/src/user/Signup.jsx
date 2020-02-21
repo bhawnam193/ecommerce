@@ -65,7 +65,7 @@ const Signup = () => {
 
     const signUpForm = () => {
         return (
-            <form className="col-md-8 col-md-offset-2">
+            <form className="col-md-8 offset-md-2">
                 <div className="form-group">
                     <label className="text-muted">Name</label>
                     <input type="text" onChange={handleChange('name')} className="form-control" value={name}/>
