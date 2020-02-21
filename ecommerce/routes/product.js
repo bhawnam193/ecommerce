@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { create, productByID, read, remove, update, list, listRelated, listCategories, listBySearch } = require('../controllers/product');
+const { create, productByID, read, remove, update, list, listRelated, listCategories, listBySearch, sendImage } = require('../controllers/product');
 
 const { requireSignIn, isAuth, isAdmin } = require('../controllers/auth');
 
@@ -19,5 +19,6 @@ router.get('/products/categories', listCategories);
 
 router.post('/products/by/search', listBySearch);
 
-module.exports = router;
+router.get('/uploads/products/:imageName', sendImage);
 
+module.exports = router;

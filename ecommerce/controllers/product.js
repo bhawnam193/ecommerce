@@ -339,3 +339,8 @@ exports.listBySearch = (req, res) => {
         }
     }
 };
+
+
+exports.sendImage = (req, res) => {
+    return res.sendFile(`${appRoot}${req.path}`);
+};
