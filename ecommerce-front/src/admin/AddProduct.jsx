@@ -76,7 +76,7 @@ const AddProduct = () => {
                 } else {
                     if (data.created) {
 
-                        setValues({ ...values, name: '', description: '', price: '', category: '', quantity: '', shipping: '', image: '', loading: false, success: 'Product Created Successfuly', formData: new FormData() });
+                        setValues({ ...values, name: '', description: '', price: '', category: '', quantity: '', shipping: '', image: '', loading: false, success: 'Product Created Successfuly', formData: new FormData(), error: false });
                         setInputKey(Math.random().toString(36));
                     }
                 }
@@ -166,7 +166,7 @@ const AddProduct = () => {
                 </div>
 
                 <div className="form-group">
-                    <label className="btn btn-secondary">
+                    Product Image<br/><label className="btn btn-secondary">
                         <input type="file" name="image" accept="image/*" onChange={handleChange('image')} key={inputKey}/>
                     </label>
                 </div>

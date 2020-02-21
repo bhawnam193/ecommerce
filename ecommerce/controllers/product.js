@@ -230,7 +230,7 @@ exports.list = (req, res) => {
                 });
             } else {
                 return res.status(400).json({
-                    errors: 'No Product Found'
+                    errors: [{msg: 'No Product Found'}]
                 });
             }
         });

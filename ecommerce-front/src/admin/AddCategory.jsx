@@ -51,8 +51,8 @@ const AddCategory = () => {
         if (error !== '') {
             return (
                 <div className="alert alert-danger">
-                	<p>{error}</p>
-            </div>
+                	{error}
+            	</div>
             )
         } else {
             return ''
@@ -63,8 +63,8 @@ const AddCategory = () => {
         if (success !== '') {
             return (
                 <div className="alert alert-success">
-                	<p>{success}</p>
-            </div>
+                	{success}
+            	</div>
             )
         } else {
             return ''
