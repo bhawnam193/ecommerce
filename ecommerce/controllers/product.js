@@ -49,7 +49,7 @@ exports.create = (req, res) => {
             });
         }
 
-        if ( Object.keys(files).length === 0 && files.constructor === Object ) {
+        if (Object.keys(files).length === 0 && files.constructor === Object) {
             return res.status(400).json({
                 errors: [{ msg: 'Image is required' }]
             });
@@ -235,7 +235,7 @@ exports.list = (req, res) => {
                 });
             } else {
                 return res.status(400).json({
-                    errors: [{msg: 'No Product Found'}]
+                    errors: [{ msg: 'No Product Found' }]
                 });
             }
         });
@@ -325,23 +325,56 @@ exports.listCategories = (req, res) => {
  * we will make api request and show the products to users based on what he wants
  */
 exports.listBySearch = (req, res) => {
+
     let order = req.query.order ? req.query.order : 'ASC';
     let sortBy = req.query.sortBy ? req.query.sortBy : 'ID';
     let limit = req.query.limit ? parseInt(req.query.limit) : 6;
-    let offset = req.query.offset ? req.query.offset : 0;
-    let skip = parseInt(req.body.skip);
-    let findArgs = {};
+    let offset = req.query.offset ? parseInt(req.query.offset) : 0;
 
-    for (let key in req.body.filters) {
-        if (req.body.filters[key].length > 0) {
-            if (key === 'price') {
-                //gte - greater than [0-10]
-                //lte - less than
-                findArgs[key] = {
+    let categoriesArr = req.body.filters.category ? req.body.filters.category : [];
+    let priceArr = req.body.filters.price ? req.body.filters.price : [];
 
-                }
-            }
+    var catClause = '';
+    if (categoriesArr.length) {
+        catClause = ` WHERE (category IN (${categoriesArr.toString()}) )`;
+
+        if (priceArr.length) {
+            //need to put an AND
+            catClause = `${catClause} AND `;
         }
+    } else {
+        if (priceArr.length) {
+            catClause = ` WHERE`
+        }
+    }
+
+    //price it was the last radio button and price must be greater than the value
+    if (priceArr.length === 2) {
+        catClause = `${catClause} (price BETWEEN ${priceArr[0]} AND ${priceArr[1]} )`;
+    }
+
+    if (priceArr.length === 1) {
+        catClause = `${catClause} (price > ${priceArr[0]})`
+    }
+    var sql = `SELECT * FROM products ${catClause} ORDER BY ${sortBy} ${order} LIMIT ${limit} OFFSET ${offset}`;
+
+    try {
+        con.query(sql, function(err, result) {
+            if (err) throw err;
+            if (result.length) {
+                return res.status(200).json({
+                    result
+                });
+            } else {
+                return res.status(200).json({
+                    not_found: true
+                });
+            }
+        });
+    } catch (err) {
+        return res.status(422).json({
+            errors: err.array()
+        });
     }
 };
 

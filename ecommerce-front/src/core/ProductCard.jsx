@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
 				<img src={`${API}${product.image}`} className="card-img-top" alt={product.name}/>
 				<div className="card-body">
 					<h5 className="card-title">{product.name}</h5>
-					<p className="card-text">{product.description}</p>
+					<p className="card-text">{product.description.substring(0,100)}</p>
 					<p className="card-text"><strong>Price: </strong>${product.price}</p>
 					<Link to="/">
 						<button className="btn btn-outline-primary mt-2 mb-2 mr-2">View Product</button>

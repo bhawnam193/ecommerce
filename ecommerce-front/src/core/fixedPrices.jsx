@@ -21,13 +21,13 @@ const prices = [
 	},
 	{
 		id: 4,
-		name: '$41 to $50',
-		array: [41, 50]
+		name: '$31 to $40',
+		array: [31, 40]
 	},
 	{
 		id: 5,
-		name: 'More than $50',
-		array: [50, ]
+		name: 'More than $40',
+		array: [40]
 	},
 ];
 

@@ -4,7 +4,8 @@ const RadioBox = ({ prices, handleFilters }) => {
 
     // const [value, setValue] = useState([]);
 
-    const handleChange = p => () => {
+    const handleChange = (event) => {
+        handleFilters(event.target.value);
         // //return the first index or -1
         // const currentCategoryId = checked.indexOf(c);
         // const newCheckedCategoryId = [...checked];
@@ -27,7 +28,7 @@ const RadioBox = ({ prices, handleFilters }) => {
     return prices.map((p, i) => {
         return (
             <div key={i}>
-                <label className="form-check-label"><input onChange={handleChange()} type="radio" className="form-check-input" value={`${p.id}`} className="mr-2 ml-4"/>{p.name}</label>
+                <label className="form-check-label"><input onChange={handleChange} type="radio" className="form-check-input" name="price" value={`${p.id}`} className="mr-2 ml-4"/>{p.name}</label>
             </div>
         )
     })
