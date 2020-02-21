@@ -15,11 +15,12 @@ const AddProduct = () => {
         quantity: '',
         image: '',
         loading: false,
-        createdProduct: '',
-        redirectToProfile: false,
         formData: '',
-        error: false
+        error: false,
+        success: false
     });
+
+    const [inputKey, setInputKey] = useState(Math.random().toString(36));
 
     const {
         name,
@@ -30,23 +31,21 @@ const AddProduct = () => {
         shipping,
         quantity,
         loading,
-        createdProduct,
-        redirectToProfile,
         formData,
-        error
+        error,
+        success
     } = values;
 
     //load categories and set form data
     const init = () => {
         getCategories()
-        .then( data => {
-            if(data.errors) {
-                setValues({...values, error: data.errors[0].msg});
-            }
-            else {
-                setValues({ ...values, categories: data.categories, formData: new FormData() });
-            }
-        })
+            .then(data => {
+                if (data.errors) {
+                    setValues({ ...values, error: data.errors[0].msg });
+                } else {
+                    setValues({ ...values, categories: data.categories, formData: new FormData() });
+                }
+            })
     }
 
     useEffect(() => {
@@ -73,10 +72,12 @@ const AddProduct = () => {
         createProduct(user.id, token, formData)
             .then(data => {
                 if (data.errors) {
-                    setValues({ ...values, error: data.errors[0].msg });
+                    setValues({ ...values, error: data.errors[0].msg, loading: false, });
                 } else {
                     if (data.created) {
-                        setValues({ ...values, name: '', description: '', image: '', price: '',category: '', quantity: '', loading: false });
+
+                        setValues({ ...values, name: '', description: '', price: '', category: '', quantity: '', shipping: '', image: '', loading: false, success: 'Product Created Successfuly', formData: new FormData() });
+                        setInputKey(Math.random().toString(36));
                     }
                 }
             });
@@ -84,7 +85,7 @@ const AddProduct = () => {
 
     const goBack = () => {
         return (
-            <div className="mt-5">
+            <div className="mt-5 mb-5">
                 <Link to="/admin/dashboard" className="text-warning">
                     Go Back to Dashboard
                 </Link>
@@ -93,11 +94,11 @@ const AddProduct = () => {
     };
 
     const showError = () => {
-        if (error !== '') {
+        if (error) {
             return (
                 <div className="alert alert-danger">
-                    <p>{error}</p>
-            </div>
+                    {error}
+                </div>
             )
         } else {
             return ''
@@ -105,15 +106,21 @@ const AddProduct = () => {
     };
 
     const showSuccess = () => {
-        //if (success !== '') {
-        return (
-            <div className="alert alert-success">
-                    <p>{/*success*/}</p>
-            </div>
-        )
-        // } else {
-        //     return ''
-        // }
+        if (success) {
+            return (
+                <div className="alert alert-success">
+                    {success}
+                </div>
+            )
+        } else {
+            return ''
+        }
+    };
+
+    const showLoading = () => {
+        if (loading) {
+            return <h2>Loading...</h2>
+        }
     };
 
     const newProductForm = () => {
@@ -138,7 +145,7 @@ const AddProduct = () => {
                     <label className="text-muted">Category</label>
                     <select className="form-control" onChange={handleChange('category')} value={category}>
                         <option value="">Select</option>
-                        {categories.map((val, i) => {
+                        {categories && categories.map((val, i) => {
                             return <option key={i} value={val.ID}>{val.name}</option>
                         })}
                     </select>
@@ -160,7 +167,7 @@ const AddProduct = () => {
 
                 <div className="form-group">
                     <label className="btn btn-secondary">
-                        <input type="file" name="image" accept="image/*" onChange={handleChange('image')}/>
+                        <input type="file" name="image" accept="image/*" onChange={handleChange('image')} key={inputKey}/>
                     </label>
                 </div>
                 
@@ -173,11 +180,11 @@ const AddProduct = () => {
         <Layout title="Add a new Product" description={`G'day ${user.name}, ready to add a new product?`}>
             <div className="row">
                 <div className="col-md-8 offset-md-2">
+                    {newProductForm()}
                     {showError()}
                     {showSuccess()}
-                    {newProductForm()}
+                    {showLoading()}
                     {goBack()}
-                    {console.log(formData)}
                 </div>
             </div>
         </Layout>

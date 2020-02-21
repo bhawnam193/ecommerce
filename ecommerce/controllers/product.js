@@ -43,8 +43,15 @@ exports.create = (req, res) => {
                 errors: [{ msg: 'Image could not be uploaded' }]
             });
         }
+
+        if ( Object.keys(files).length === 0 && files.constructor === Object ) {
+            return res.status(400).json({
+                errors: [{ msg: 'Image is required' }]
+            });
+        }
+
         //1mb size max size of file
-        if (files.image.size > 1000000) {
+        if (files && files.image.size > 1000000) {
             return res.status(400).json({
                 errors: [{ msg: 'Image size exceeds 1MB' }]
             });
@@ -56,7 +63,7 @@ exports.create = (req, res) => {
 
         if (!name || !description || !price || !category || !quantity || !shipping) {
             return res.status(400).json({
-                errors: [{ masg: 'All fields are required' }]
+                errors: [{ msg: 'All fields are required' }]
             });
         }
 
