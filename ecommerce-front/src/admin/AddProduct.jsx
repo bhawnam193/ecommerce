@@ -166,7 +166,8 @@ const AddProduct = () => {
                 </div>
 
                 <div className="form-group">
-                    Product Image<br/><label className="btn btn-secondary">
+                    <label className="text-muted">Product Image</label><br/>
+                    <label className="btn btn-secondary">
                         <input type="file" name="image" accept="image/*" onChange={handleChange('image')} key={inputKey}/>
                     </label>
                 </div>
