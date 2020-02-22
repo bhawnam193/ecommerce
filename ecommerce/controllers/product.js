@@ -367,7 +367,8 @@ exports.listBySearch = (req, res) => {
                 });
             } else {
                 return res.status(200).json({
-                    not_found: true
+                    not_found: true,
+                    result: []
                 });
             }
         });

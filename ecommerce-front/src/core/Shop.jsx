@@ -19,7 +19,7 @@ const Shop = () => {
 
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
-    const [limit, setLimit] = useState(6);
+    const [limit, setLimit] = useState(4);
     const [offset, setOffset] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
 
@@ -55,7 +55,7 @@ const Shop = () => {
     const showProducts = () => {
         if (filteredResults) {
             return (
-            	filteredResults.map((p, i) => {
+                filteredResults.map((p, i) => {
                     return (<ProductCard product={p} key={i} />)
                 })
             )
@@ -81,7 +81,27 @@ const Shop = () => {
     };
 
     const loadMore = () => {
+        let localOffset = offset + limit;
 
+        getFilteredProducts(localOffset, limit, myFilters.filters, '', '')
+            .then(data => {
+                if (data.errors) {
+                    setError(data.errors[0].msg)
+                } else {
+                    setFilteredResults([...filteredResults, ...data.result]);
+                    setSize(size + data.result.length);
+                    setOffset(localOffset);
+                }
+            });
+    }
+
+    const loadMoreButton = () => {
+    	console.log(`size ${size} offset ${offset} `)
+        return (
+            size > 0 && size >= limit && (
+                <button onClick={loadMore} className="btn btn-warning mb-5">Load More</button>
+            )
+        )
     }
 
     const handlePrice = value => {
@@ -114,7 +134,10 @@ const Shop = () => {
 	    		<div className="col-md-9">
 	    			<div className="row">
 	    				{showProducts()}
+
 	    			</div>
+	    			<hr/>
+	    			{loadMoreButton()}
 	    		</div>
 			</div>
 		</Layout>
