@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { getProducts } from './apiCore';
 import ProductCard from './ProductCard';
+import Search from './Search';
 
 const Home = () => {
 
@@ -52,6 +53,7 @@ const Home = () => {
 
     return (
         <Layout title="Home Page" description="node ecommerce app">
+            <Search />
             {showError()}
             <h2 className="mb-4">Best Sellers</h2>
             <div className="row">

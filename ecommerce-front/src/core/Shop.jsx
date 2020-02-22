@@ -19,7 +19,7 @@ const Shop = () => {
 
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
-    const [limit, setLimit] = useState(3);
+    const [limit] = useState(3);
     const [offset, setOffset] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
 
@@ -37,6 +37,7 @@ const Shop = () => {
             });
         //fetch default results
         loadFilteredResult(myFilters.filters);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleFilters = (filters, filterBy) => {

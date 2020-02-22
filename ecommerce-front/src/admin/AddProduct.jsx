@@ -50,6 +50,7 @@ const AddProduct = () => {
 
     useEffect(() => {
         init();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     //destructure user and token from localstorage

@@ -28,3 +28,15 @@ export const getFilteredProducts = (offset, limit, filters = {}, sortBy, order) 
         })
         .catch(err => console.log(err));
 };
+
+
+// fetch products for homesearch
+export const list = params => {
+    return fetch(`${API}/products/?sortBy=${sortBy}&order=desc&limit=6`, {
+            method: "GET"
+        })
+        .then(res => {
+            return res.json();
+        })
+        .catch(err => console.log(err));
+};
