@@ -97,7 +97,7 @@ const Shop = () => {
     }
 
     const loadMoreButton = () => {
-    	
+
         return (
             size > 0 && size >= limit && (
                 <button onClick={loadMore} className="btn btn-warning mb-5">Load More</button>
@@ -106,15 +106,15 @@ const Shop = () => {
     }
 
     const showError = () => {
-    	if ( error) {
-    		return (
-    			<div className="alert alert-danger">
-    				An error Occured
-    			</div>
-    		)
-    	} else {
-    		return '';
-    	}
+        if (error) {
+            return (
+                <div className="alert alert-danger">
+                    An error Occured
+                </div>
+            )
+        } else {
+            return '';
+        }
     };
 
     const handlePrice = value => {
@@ -132,27 +132,27 @@ const Shop = () => {
 
     return (
         <Layout title="Shop Page" description="Search and find books of your choice">
-	    	<div className="row">
-	    		<div className="col-md-3 filter-sidebar">
-		    		<h4>Filter by categories</h4>
-	    			<Checkbox categories={categories}  handleFilters={ filters => handleFilters(filters, 'category')}/>
+            <div className="row">
+                <div className="col-md-3 filter-sidebar">
+                    <h4>Filter by categories</h4>
+                    <Checkbox categories={categories}  handleFilters={ filters => handleFilters(filters, 'category')}/>
 
-		    		<h4 className="mt-2">Filter by price range</h4>
-		    		<div>
-		    			<RadioBox prices={prices} handleFilters={ filters => handleFilters(filters, 'price')}/>
-	    			</div>
-	    		</div>
-	    		<div className="col-md-9">
-	    			{showError()}
-	    			<div className="row">
-	    				{showProducts()}
+                    <h4 className="mt-2">Filter by price range</h4>
+                    <div>
+                        <RadioBox prices={prices} handleFilters={ filters => handleFilters(filters, 'price')}/>
+                    </div>
+                </div>
+                <div className="col-md-9">
+                    {showError()}
+                    <div className="row">
+                        {showProducts()}
 
-	    			</div>
-	    			<hr/>
-	    			{loadMoreButton()}
-	    		</div>
-			</div>
-		</Layout>
+                    </div>
+                    <hr/>
+                    {loadMoreButton()}
+                </div>
+            </div>
+        </Layout>
     )
 };
 

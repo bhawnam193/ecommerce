@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './core/Home';
 import Shop from './core/Shop';
+import Product from './core/Product';
 
 import Signup from './user/Signup';
 import Signin from './user/Signin';
@@ -20,6 +21,7 @@ const Routes = () => {
         <BrowserRouter>
 			<Switch>
 				<Route path="/" exact component={Home}/>
+				<Route path="/product/:productId" exact component={Product}/>
 				<Route path="/shop" exact component={Shop}/>
 				<Route path="/signin" exact component={Signin}/> 
 				<Route path="/signup" exact component={Signup}/> 

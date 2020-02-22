@@ -383,3 +383,40 @@ exports.listBySearch = (req, res) => {
 exports.sendImage = (req, res) => {
     return res.sendFile(`${appRoot}${req.path}`);
 };
+
+exports.search = (req, res) => {
+
+    var sql = '';
+    if (req.query.search) {
+
+        sql = `SELECT * FROM products WHERE name LIKE '%${req.query.search}%' `
+
+        if (req.query.category && req.query.category !== 'All') {
+            sql = `${sql} AND category = ${req.query.category};`
+        }
+
+        try {
+            con.query(sql, function(err, result) {
+                if (err) throw err;
+                if (result.length) {
+                    return res.status(200).json({
+                        result
+                    });
+                } else {
+                    return res.status(200).json({
+                        not_found: true,
+                        result: []
+                    });
+                }
+            });
+        } catch (err) {
+            return res.status(422).json({
+                errors: err.array()
+            });
+        }
+    } else {
+        return res.status(422).json({
+            errors: [{ msg: 'Please enter search query' }]
+        });
+    }
+}

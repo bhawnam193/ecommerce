@@ -1,4 +1,5 @@
 import { API } from '../config';
+import queryString from 'query-string';
 
 // fetch products based on arrival or most sell for homepage
 export const getProducts = (sortBy) => {
@@ -32,7 +33,20 @@ export const getFilteredProducts = (offset, limit, filters = {}, sortBy, order) 
 
 // fetch products for homesearch
 export const list = params => {
-    return fetch(`${API}/products/?sortBy=&order=desc&limit=6`, {
+    const query = queryString.stringify(params)
+    return fetch(`${API}/products/search?${query}`, {
+            method: "GET"
+        })
+        .then(res => {
+            return res.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
+// fetch products for homesearch
+export const read = (id) => {
+    return fetch(`${API}/product/${id}`, {
             method: "GET"
         })
         .then(res => {
