@@ -32,7 +32,7 @@ export const getFilteredProducts = (offset, limit, filters = {}, sortBy, order) 
 
 // fetch products for homesearch
 export const list = params => {
-    return fetch(`${API}/products/?sortBy=${sortBy}&order=desc&limit=6`, {
+    return fetch(`${API}/products/?sortBy=&order=desc&limit=6`, {
             method: "GET"
         })
         .then(res => {

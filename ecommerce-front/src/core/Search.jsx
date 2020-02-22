@@ -56,7 +56,7 @@ const Search = () => {
             			<input type="text" className="form-control" onChange={handleChange('search')} placeholder="Search Products"/>
             		</div>
             		<div className="btn input-group-append" style={{border: 'none'}}>
-            			<input type="submit" className="input-group-text"/>
+            			<input type="submit" className="btn btn-outline-primary bg-white"/>
             		</div>
             	</span>
 	    	</form>

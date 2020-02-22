@@ -11,6 +11,9 @@ p:last-child:not(.lead) {
     margin-bottom: 0;
 }
 
+.nav-tabs {
+    border-bottom: 0;
+}
 /**
 * Product image on card
 */
@@ -19,13 +22,7 @@ p:last-child:not(.lead) {
     max-height: 300px;
 }
 
-.jumbotron h2 {
-    margin-top: -20px;
-}
-
 .jumbotron {
-    width: 30wh;
-    height: 30vh;
     color: #fff;
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
@@ -73,11 +70,5 @@ p:last-child:not(.lead) {
 
     100% {
         background-position: 0% 50%;
-    }
-}
-
-@media (max-width: 600px) {
-    .jumbotron h2 {
-        margin-top: 10px;
     }
 }
