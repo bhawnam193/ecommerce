@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
-import { getProducts, getFilteredProducts } from './apiCore';
+import { getFilteredProducts } from './apiCore';
 import ProductCard from './ProductCard';
 import { getCategories } from '../admin/apiAdmin';
 
@@ -19,7 +19,7 @@ const Shop = () => {
 
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
-    const [limit, setLimit] = useState(4);
+    const [limit, setLimit] = useState(3);
     const [offset, setOffset] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
 
@@ -43,7 +43,7 @@ const Shop = () => {
         const localFilter = { ...myFilters };
         localFilter.filters[filterBy] = filters;
 
-        if (filterBy == 'price') {
+        if (filterBy === 'price') {
             let priceValues = handlePrice(filters);
             localFilter.filters[filterBy] = priceValues;
         }
@@ -89,14 +89,14 @@ const Shop = () => {
                     setError(data.errors[0].msg)
                 } else {
                     setFilteredResults([...filteredResults, ...data.result]);
-                    setSize(size + data.result.length);
+                    setSize(data.result.length);
                     setOffset(localOffset);
                 }
             });
     }
 
     const loadMoreButton = () => {
-    	console.log(`size ${size} offset ${offset} `)
+    	
         return (
             size > 0 && size >= limit && (
                 <button onClick={loadMore} className="btn btn-warning mb-5">Load More</button>
@@ -104,12 +104,24 @@ const Shop = () => {
         )
     }
 
+    const showError = () => {
+    	if ( error) {
+    		return (
+    			<div className="alert alert-danger">
+    				An error Occured
+    			</div>
+    		)
+    	} else {
+    		return '';
+    	}
+    };
+
     const handlePrice = value => {
         const data = prices;
         let array = [];
 
         for (let key in data) {
-            if (data[key].id == parseInt(value)) {
+            if (data[key].id === parseInt(value)) {
                 array = data[key].array;
             }
         }
@@ -132,6 +144,7 @@ const Shop = () => {
 	    			</div>
 	    		</div>
 	    		<div className="col-md-9">
+	    			{showError()}
 	    			<div className="row">
 	    				{showProducts()}
 

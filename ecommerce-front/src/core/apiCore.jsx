@@ -12,7 +12,7 @@ export const getProducts = (sortBy) => {
 };
 
 
-//
+//get filtered products for shop page
 export const getFilteredProducts = (offset, limit, filters = {}, sortBy, order) => {
 
     return fetch(`${API}/products/by/search?limit=${limit}&sortBy=${sortBy}&offset=${offset}&order=${order}`, {
