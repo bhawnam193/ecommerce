@@ -5,11 +5,14 @@ var appRoot = require('app-root-path');
 exports.productByID = (req, res, next, id) => {
     try {
         var sql = `SELECT
-                      *
+                      p.*,
+                      c.name AS category_name
                     FROM
-                      products
+                      products p
+                      JOIN category c
                     WHERE
-                      ID = ${id}`;
+                      p.ID = ${id}
+                      AND p.category = c.ID`;
 
         con.query(sql, function(err, result) {
 

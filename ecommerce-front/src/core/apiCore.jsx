@@ -44,7 +44,7 @@ export const list = params => {
 };
 
 
-// fetch products for homesearch
+// fetch product for product page 
 export const read = (id) => {
     return fetch(`${API}/product/${id}`, {
             method: "GET"
@@ -54,3 +54,14 @@ export const read = (id) => {
         })
         .catch(err => console.log(err));
 };
+
+
+export const relatedProducts = (id) => {
+    return fetch(`${API}/products/related/${id}?limit=3`, {
+            method: "GET"
+        })
+        .then(res => {
+            return res.json();
+        })
+        .catch(err => console.log(err));  
+}
