@@ -23,7 +23,7 @@ const Product = (props) => {
     };
 
     const loadRelatedProducts = productId => {
-    	relatedProducts(productId)
+        relatedProducts(productId)
             .then(data => {
                 if (data.errors) {
                     setError(data.errors);
@@ -73,14 +73,14 @@ const Product = (props) => {
     			</div>
             )
         } else {
-        	return '';
+            return '';
         }
     };
 
     const showRelated = () => {
-    	if (related.length) {
-    		return(
-    			<Fragment>
+        if (related.length) {
+            return (
+                <Fragment>
 	    			<h2 className="mt-3"> Related Products</h2>
 	    			<div className="row">
 	    				{related.map((p,i) => {
@@ -88,12 +88,12 @@ const Product = (props) => {
 	    				}) }
 	    			</div>
 	    		</Fragment>
-    		)
-    	} else{
-    		return(
-    			<h2 className="mt-3">No Related Products Found</h2>
-    		)
-    	}
+            )
+        } else {
+            return (
+                <h2 className="mt-3">No Related Products Found</h2>
+            )
+        }
     };
 
     return (
