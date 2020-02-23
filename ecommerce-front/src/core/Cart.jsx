@@ -7,10 +7,11 @@ import CartRow from './CartRow';
 const Cart = () => {
 
     const [items, setItems] = useState([]);
+    const [run, setRun] = useState(false);
 
     useEffect(() => {
         setItems(getCart());
-    }, []);
+    }, [run]);
 
     const showItems = items => {
         return (
@@ -23,11 +24,12 @@ const Cart = () => {
 	    					<th scope="col">Name</th>
 	    					<th scope="col">Image</th>
 	    					<th scope="col">Quantity</th>
+	    					<th scope="col">Remove</th>
 		    			</tr>
 		    		</thead>
 		    		<tbody>
 	    				{items.map((p,i) => {
-	    					return <CartRow key={i} p={p}/>
+	    					return <CartRow key={i} p={p} setRun={setRun}/>
 	    				})}
     				</tbody>
     			</table>
@@ -50,9 +52,9 @@ const Cart = () => {
            		<div className="col-md-6">
            			{items.length ? showItems(items) : noItemMessage()}
            		</div>
-           		<div className="col-md-6">
+           		{/*<div className="col-md-6">
            			<p>show shipping</p>
-           		</div>
+           		</div>*/}
            </div>
         </Layout>
     )

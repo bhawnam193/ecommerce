@@ -57,10 +57,31 @@ export const updateItem = (pID, count) => {
 
         cart.map((p, i) => {
             if (p.ID === pID) {
-                cart[i].count = count;
+                cart[i].count = parseInt(count);
             }
+            return null;
         });
 
         localStorage.setItem('cart', JSON.stringify(cart));
     }
+}
+
+export const removeItem = (pID) => {
+    let cart = [];
+
+    if (typeof window !== 'undefined') {
+        if (localStorage.getItem('cart')) {
+            cart = JSON.parse(localStorage.getItem('cart'));
+        }
+
+        cart.map((p, i) => {
+            if (p.ID === pID) {
+                cart.splice(i, 1);
+            }
+            return null;
+        });
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    return cart;
 }
