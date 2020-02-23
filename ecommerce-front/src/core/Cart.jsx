@@ -3,6 +3,7 @@ import Layout from './Layout';
 import { Link } from 'react-router-dom';
 import { getCart } from './cartHelpers';
 import CartRow from './CartRow';
+import Checkout from './Checkout';
 
 const Cart = () => {
 
@@ -49,12 +50,13 @@ const Cart = () => {
     return (
         <Layout title="Shopping Cart" description="Manage your cart items. Add, remove,  checkout or continue shopping.">
            <div className="row">
-           		<div className="col-md-6">
+           		<div className="col-md-9">
            			{items.length ? showItems(items) : noItemMessage()}
            		</div>
-           		{/*<div className="col-md-6">
-           			<p>show shipping</p>
-           		</div>*/}
+           		<div className="col-md-3">
+           			<h3 className="mb-4">Your cart summary</h3>
+           			<Checkout products={items} />
+           		</div>
            </div>
         </Layout>
     )

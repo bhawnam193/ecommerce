@@ -30,6 +30,10 @@ app.use("/api", catRouter);
 const productRouter = require('./routes/product');
 app.use("/api", productRouter);
 
+//routes for braintree
+const braintreeRouter = require('./routes/braintree');
+app.use("/api", braintreeRouter);
+
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
