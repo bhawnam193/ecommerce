@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { signout, isAuthenticated } from '../auth'
+import { itemTotal } from './cartHelpers';
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -23,12 +24,14 @@ const Menu = ({ history }) => {
 				<li className="nav-item">
 					<Link className="nav-link" to="/shop" style={isActive(history, '/shop')}>Shop</Link>
 				</li>
+				<li className="nav-item">
+					<Link className="nav-link" to="/cart" style={isActive(history, '/cart')}>Cart<sup><small className="cart-badge">{itemTotal()}</small></sup></Link>
+				</li>
 				{ user && user.role === 0 && (
 					<li className="nav-item">
 						<Link className="nav-link" to="/user/dashboard" style={isActive(history, '/user/dashboard')}>Dashboard </Link>
 					</li>
 				)}
-
 				{user && user.role === 1 && (
 					<li className="nav-item">
 						<Link className="nav-link" to="/admin/dashboard" style={isActive(history, '/admin/dashboard')}>Dashboard </Link>

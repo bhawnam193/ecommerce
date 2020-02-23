@@ -7,6 +7,16 @@
     border-radius: 0;
 }
 
+/*cart badge*/
+.cart-badge,
+.cart-badge:hover {
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 12px;
+    background-color: #000;
+    margin-left: 3px;
+}
+
 p:last-child:not(.lead) {
     margin-bottom: 0;
 }
@@ -22,8 +32,9 @@ img.product-image {
 }
 
 .search-container .btn-outline-primary:hover {
-    background-color: #007bff !important; 
+    background-color: #007bff !important;
 }
+
 /**
 * Product image on card
 */
