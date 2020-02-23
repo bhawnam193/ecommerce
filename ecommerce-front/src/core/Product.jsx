@@ -40,7 +40,7 @@ const Product = (props) => {
 
         loadRelatedProducts(productId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [props]);
 
     const showProduct = () => {
 
@@ -72,6 +72,8 @@ const Product = (props) => {
     				An error occured
     			</div>
             )
+        } else {
+        	return '';
         }
     };
 
@@ -96,7 +98,7 @@ const Product = (props) => {
 
     return (
         <Layout title={product && product.name} description={product && product.description && product.description.substring(0,100)}>
-        	
+        	{showError()}
         	{showProduct()}
         	{showRelated()}
         </Layout>

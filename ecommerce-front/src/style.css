@@ -18,6 +18,7 @@ p:last-child:not(.lead) {
 img.product-image {
     display: block;
     margin: 0 auto;
+    max-width: 100%;
 }
 
 .search-container .btn-outline-primary:hover {
