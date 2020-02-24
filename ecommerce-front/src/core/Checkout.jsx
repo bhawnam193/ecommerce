@@ -42,14 +42,12 @@ const Checkout = ({ products }) => {
         return (
             <div>
                 {data.clientToken !==null && products.length > 0 ? (
-
                         <div>
                         <DropIn options={{ authorization: data.clientToken }} onInstance={instance => (data.instance = instance)} />
                             <button className="btn btn-success">Checkout</button>
                         </div>
                     ) : null }
             </div>
-
         )
     };
 
