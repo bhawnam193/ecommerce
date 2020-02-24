@@ -30,6 +30,7 @@ const Checkout = ({ products }) => {
 
     useEffect(() => {
         getToken(userId, token);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getTotal = () => {

@@ -12,10 +12,8 @@ export const getProducts = (sortBy) => {
         .catch(err => console.log(err));
 };
 
-
 //get filtered products for shop page
 export const getFilteredProducts = (offset, limit, filters = {}, sortBy, order) => {
-
     return fetch(`${API}/products/by/search?limit=${limit}&sortBy=${sortBy}&offset=${offset}&order=${order}`, {
             method: "POST",
             headers: {
@@ -30,7 +28,6 @@ export const getFilteredProducts = (offset, limit, filters = {}, sortBy, order) 
         .catch(err => console.log(err));
 };
 
-
 // fetch products for homesearch
 export const list = params => {
     const query = queryString.stringify(params)
@@ -43,7 +40,6 @@ export const list = params => {
         .catch(err => console.log(err));
 };
 
-
 // fetch product for product page 
 export const read = (id) => {
     return fetch(`${API}/product/${id}`, {
@@ -55,7 +51,6 @@ export const read = (id) => {
         .catch(err => console.log(err));
 };
 
-
 export const relatedProducts = (id) => {
     return fetch(`${API}/products/related/${id}?limit=3`, {
             method: "GET"
@@ -63,9 +58,8 @@ export const relatedProducts = (id) => {
         .then(res => {
             return res.json();
         })
-        .catch(err => console.log(err));  
+        .catch(err => console.log(err));
 }
-
 
 export const getBraintreeClientToken = (userID, token) => {
     return fetch(`${API}/braintree/getToken/${userID}`, {
@@ -79,5 +73,5 @@ export const getBraintreeClientToken = (userID, token) => {
         .then(res => {
             return res.json();
         })
-        .catch(err => console.log(err));  
+        .catch(err => console.log(err));
 }

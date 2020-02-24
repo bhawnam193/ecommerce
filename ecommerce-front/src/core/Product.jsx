@@ -35,15 +35,12 @@ const Product = (props) => {
 
     useEffect(() => {
         const productId = props.match.params.productId;
-
         loadSingleProduct(productId);
-
         loadRelatedProducts(productId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props]);
 
     const showProduct = () => {
-
         if (Object.entries(product).length === 0 && product.constructor === Object) {
             return '';
         } else {
