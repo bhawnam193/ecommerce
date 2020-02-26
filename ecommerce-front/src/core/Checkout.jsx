@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth';
-import { getBraintreeClientToken } from './apiCore';
+import { getBraintreeClientToken, processPayment } from './apiCore';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
 
@@ -33,6 +33,32 @@ const Checkout = ({ products }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const buy = () => {
+        //send the nonce to the server
+        //nonce = data.instance.requestPaymentMethod()
+        let nonce;
+        let getNonce = data.instance.requestPaymentMethod()
+            .then(data => {
+                console.log(data);
+                nonce = data.nonce;
+                //once you have nonce (card type, card number) send nocne as 'paymentMethodNonce'
+                //and also total to be charged
+                //console.log('send nocne and total to process: ', nonce, getTotal(products));
+                const paymentData = {
+                    paymentMethodNonce: nonce,
+                    amount: getTotal(products)
+                }
+
+                processPayment(userId, token, paymentData)
+                    .then(res => console.log(res))
+                    .catch(error => console.log(error));
+            })
+            .catch(error => {
+                console.log('dropin error:', error)
+                setData({ ...data, error: error.message });
+            })
+    };
+
     const getTotal = () => {
         return products.reduce((currentValue, nextValue) => {
             return currentValue + nextValue.count * nextValue.price
@@ -41,15 +67,25 @@ const Checkout = ({ products }) => {
 
     const showDropIn = () => {
         return (
-            <div>
+            <div onBlur={() => { setData({...data, error: false}) }}>
                 {data.clientToken !==null && products.length > 0 ? (
                         <div>
                         <DropIn options={{ authorization: data.clientToken }} onInstance={instance => (data.instance = instance)} />
-                            <button className="btn btn-success">Checkout</button>
+                            <button onClick={buy} className="btn btn-success btn-block">Pay</button>
                         </div>
                     ) : null }
             </div>
         )
+    };
+
+    const showError = error => {
+        if (error) {
+            return (
+                <div className="alert alert-danger"> {error} </div>
+            )
+        } else {
+            return '';
+        }
     };
 
     const showCheckout = () => {
@@ -71,6 +107,7 @@ const Checkout = ({ products }) => {
     return (
         <div>
             <h4>Total: ${getTotal()}</h4>
+            {showError(data.error)}
             {showCheckout()}
         </div>
     )
