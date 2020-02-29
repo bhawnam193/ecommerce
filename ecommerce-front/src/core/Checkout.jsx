@@ -32,7 +32,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
 
     useEffect(() => {
         if (userId && token) {
-            getToken(userId, token);    
+            getToken(userId, token);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
