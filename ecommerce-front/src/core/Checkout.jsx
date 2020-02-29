@@ -50,7 +50,11 @@ const Checkout = ({ products }) => {
                 }
 
                 processPayment(userId, token, paymentData)
-                    .then(res => console.log(res))
+                    .then(res => {
+                        setData({ ...data, sucees: res.success });
+                        //empty cart
+                        //create order
+                    })
                     .catch(error => console.log(error));
             })
             .catch(error => {
@@ -88,6 +92,17 @@ const Checkout = ({ products }) => {
         }
     };
 
+
+    const showSuccess = success => {
+        if (success) {
+            return (
+                <div className="alert alert-info">  Thanks you for purchasing</div>
+            )
+        } else {
+            return '';
+        }
+    };
+
     const showCheckout = () => {
         return (
             isAuthenticated() ? (
@@ -108,6 +123,7 @@ const Checkout = ({ products }) => {
         <div>
             <h4>Total: ${getTotal()}</h4>
             {showError(data.error)}
+            {showSuccess(data.success)}
             {showCheckout()}
         </div>
     )
