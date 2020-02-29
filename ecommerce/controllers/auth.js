@@ -1,7 +1,7 @@
 const con = require('../db');
 const crypto = require('crypto');
 const { validationResult } = require('express-validator');
-const uuidv1 = require('uuid/v1');
+const uuidv4 = require('uuid/v4');
 
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
@@ -13,7 +13,7 @@ exports.signUp = (req, res) => {
         return res.status(422).json({ errors: errors.array() });
     }
     
-    var salt = uuidv1();
+    var salt = uuidv4();
 
     var password = crypto.createHmac('sha1', salt).update(req.body.password).digest('hex');
 

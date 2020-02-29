@@ -7,6 +7,10 @@
     border-radius: 0;
 }
 
+table.table.cart-table img {
+    max-width: 50px;
+}
+
 /*cart badge*/
 .cart-badge,
 .cart-badge:hover {

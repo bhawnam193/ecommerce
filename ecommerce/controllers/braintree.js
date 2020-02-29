@@ -11,9 +11,9 @@ exports.generateToken = (req, res) => {
 
     gateway.clientToken.generate({}, function(err, response) {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).json(err);
         } else {
-            res.send(response);
+            return res.json(response);
         }
     });
 }
@@ -32,9 +32,9 @@ exports.processPayment = (req, res) => {
         }
     }, (error, result) => {
         if (error) {
-            res.status(500).json(error)
+            return res.status(500).json(error);
         } else {
-            res.json(result);
+            return res.json(result);
         }
     });
 }

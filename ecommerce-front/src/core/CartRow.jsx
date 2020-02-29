@@ -8,12 +8,11 @@ const CartRow = ({ p, setRun = f => f, run = undefined }) => {
     const [count, setCount] = useState(p.count);
 
     const handleChange = pID => event => {
-        setRun(!run); // run useEffect in parent Cart
         setCount(event.target.value < 1 ? 1 : event.target.value);
-
         if (event.target.value >= 1) {
             updateItem(pID, event.target.value);
         }
+        setRun(!run); // run useEffect in parent Cart
     }
 
     return (
@@ -34,6 +33,9 @@ const CartRow = ({ p, setRun = f => f, run = undefined }) => {
 					</div>
 					<input type="number" className="form-control" value={count} onChange={handleChange(p.ID)}/>
 				</div>
+			</td>
+			<td>
+				${p.price}
 			</td>
 			<td>
 				<button className="btn btn-outline-danger" onClick={() => {

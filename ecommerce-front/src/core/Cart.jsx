@@ -19,18 +19,19 @@ const Cart = () => {
             <div>
     			<h2>Your cart has {`${items.length}`} items</h2>
     			<hr />
-    			<table className="table">
+    			<table className="table cart-table">
     				<thead>
 	    				<tr> 
 	    					<th scope="col">Name</th>
 	    					<th scope="col">Image</th>
 	    					<th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
 	    					<th scope="col">Remove</th>
 		    			</tr>
 		    		</thead>
 		    		<tbody>
 	    				{items.map((p,i) => {
-	    					return <CartRow key={i} p={p} setRun={setRun}/>
+	    					return <CartRow key={i} p={p} setRun={setRun} run={run}/>
 	    				})}
     				</tbody>
     			</table>
@@ -55,7 +56,7 @@ const Cart = () => {
            		</div>
            		<div className="col-md-3">
            			<h3 className="mb-4">Your cart summary</h3>
-           			<Checkout products={items} />
+           			<Checkout products={items} setRun={setRun} run={run} />
            		</div>
            </div>
         </Layout>

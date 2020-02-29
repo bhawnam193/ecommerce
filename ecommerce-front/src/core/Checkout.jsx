@@ -3,11 +3,13 @@ import { isAuthenticated } from '../auth';
 import { getBraintreeClientToken, processPayment } from './apiCore';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
+import { emptyCart } from './cartHelpers';
 
-const Checkout = ({ products }) => {
+
+const Checkout = ({ products, setRun = f => f, run = undefined }) => {
 
     const [data, setData] = useState({
-        sucees: false,
+        succes: false,
         clientToken: null,
         error: '',
         instance: {},
@@ -29,7 +31,9 @@ const Checkout = ({ products }) => {
     };
 
     useEffect(() => {
-        getToken(userId, token);
+        if (userId && token) {
+            getToken(userId, token);    
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -51,8 +55,12 @@ const Checkout = ({ products }) => {
 
                 processPayment(userId, token, paymentData)
                     .then(res => {
-                        setData({ ...data, sucees: res.success });
+                        setData({ ...data, success: res.success });
                         //empty cart
+                        emptyCart(() => {
+                            console.log('payment success cart empty');
+                        });
+                        setRun(!run); // run useEffect in parent Cart
                         //create order
                     })
                     .catch(error => console.log(error));
@@ -91,7 +99,6 @@ const Checkout = ({ products }) => {
             return '';
         }
     };
-
 
     const showSuccess = success => {
         if (success) {
