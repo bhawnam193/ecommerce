@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth';
-import { getBraintreeClientToken, processPayment } from './apiCore';
+import { getBraintreeClientToken, processPayment, createOrder } from './apiCore';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
 import { emptyCart } from './cartHelpers';
@@ -37,6 +37,10 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const handleAddress = event => {
+        setData({ ...data, address: event.target.value });
+    };
+
     const buy = () => {
         setData({ loading: true });
         //send the nonce to the server
@@ -57,14 +61,20 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                 processPayment(userId, token, paymentData)
                     .then(res => {
                         setData({ ...data, success: res.success });
+                        //create order
+                        const createOrderData = {
+                            products: products,
+                            transaction_id: res.transaction.id,
+                            amount: res.transaction.amount,
+                            address: data.address
+                        }
+                        createOrder(userId, token, createOrderData);
                         //empty cart
                         emptyCart(() => {
                             console.log('payment success cart empty');
                         });
                         setRun(!run); // run useEffect in parent Cart
-
                         setData({ ...data, loading: false });
-                        //create order
                     })
                     .catch(error => {
                         console.log(error);
@@ -92,6 +102,10 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
             <div onBlur={() => { setData({...data, error: false}) }}>
                 {data.clientToken !==null && products.length > 0 ? (
                         <div>
+                            <div className="form-group mb-3">
+                                <label className="text-muted">Delivery Address:</label>
+                                <textarea onChange={handleAddress} className="form-control" value={data.address} placeholder="Type your delivery address here..."/>
+                            </div>
                             <DropIn options={{ authorization: data.clientToken,
                             paypal: {
                                 flow: 'vault'
