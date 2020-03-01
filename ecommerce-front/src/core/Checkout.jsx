@@ -9,11 +9,12 @@ import { emptyCart } from './cartHelpers';
 const Checkout = ({ products, setRun = f => f, run = undefined }) => {
 
     const [data, setData] = useState({
-        succes: false,
+        success: false,
         clientToken: null,
         error: '',
         instance: {},
-        address: ''
+        address: '',
+        loading: false,
     });
 
     const userId = isAuthenticated() && isAuthenticated().user.id;
@@ -27,7 +28,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                 } else {
                     setData({ ...data, clientToken: res.clientToken });
                 }
-            })
+            });
     };
 
     useEffect(() => {
@@ -38,6 +39,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
     }, []);
 
     const buy = () => {
+        setData({ loading: true });
         //send the nonce to the server
         //nonce = data.instance.requestPaymentMethod()
         let nonce;
@@ -61,14 +63,19 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                             console.log('payment success cart empty');
                         });
                         setRun(!run); // run useEffect in parent Cart
+
+                        setData({ ...data, loading: false });
                         //create order
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => {
+                        console.log(error);
+                        setData({ loading: false });
+                    });
             })
             .catch(error => {
                 console.log('dropin error:', error)
                 setData({ ...data, error: error.message });
-            })
+            });
     };
 
     const getTotal = () => {
@@ -76,6 +83,10 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
             return currentValue + nextValue.count * nextValue.price
         }, 0);
     };
+
+    const showLoading = loading => {
+        return loading && <h2>Loading...</h2>
+    }
 
     const showDropIn = () => {
         return (
@@ -132,6 +143,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
     return (
         <div>
             <h4>Total: ${getTotal()}</h4>
+            {showLoading(data.loading)}
             {showError(data.error)}
             {showSuccess(data.success)}
             {showCheckout()}
