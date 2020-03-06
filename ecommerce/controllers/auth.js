@@ -30,7 +30,6 @@ exports.signUp = (req, res) => {
         if (err) return res.status(422).json({ errors: [{ msg: Object.values(err)[2] }] });
         return res.json({ success: true });
     });
-
 };
 
 
