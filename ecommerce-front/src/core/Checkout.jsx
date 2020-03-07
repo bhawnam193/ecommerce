@@ -69,7 +69,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                             address: data.address
                         }
                         createOrder(userId, token, createOrderData)
-                            .then(res => {
+                            .then(resp => {
                                 //empty cart
                                 emptyCart(() => {
                                     console.log('payment success cart empty');
