@@ -1,10 +1,9 @@
 const con = require('../db');
 
-const arrayToObject = (array, keyField) =>
-    array.reduce((obj, item) => {
-        obj[item[keyField]] = item
-        return obj
-    }, {});
+exports.orderByID = (req, res, next, id) => {
+    req.order = id;
+    next();
+};
 
 exports.create = (req, res) => {
     const prod = JSON.stringify(req.body.order.products);
@@ -88,6 +87,55 @@ exports.listOrders = (req, res) => {
             } else {
                 return res.status(400).json({
                     errors: [{ msg: 'An error occured while updating product' }]
+                });
+            }
+        });
+    } catch (err) {
+        return res.status(422).json({
+            errors: err.array()
+        });
+    }
+};
+
+exports.getStatusValues = (req, res) => {
+
+    try {
+        var sql = `SHOW COLUMNS
+					FROM
+					  orders LIKE 'status'`;
+
+        con.query(sql, function(err, result) {
+
+            if (err) throw err;
+
+            if (result.length) {
+                return res.json(result);
+            } else {
+                return res.status(400).json({
+                    errors: [{ msg: 'An error occured while fetching status' }]
+                });
+            }
+        });
+    } catch (err) {
+        return res.status(422).json({
+            errors: err.array()
+        });
+    }
+};
+
+exports.updateOrderStatus = (req, res) => {
+	try {
+        var sql = `UPDATE orders SET status = '${req.body.status}' WHERE ID = ${req.order}`;
+
+        con.query(sql, function(err, result) {
+
+            if (err) throw err;
+
+            if (result.affectedRows) {
+                return res.json({updated: true});
+            } else {
+                return res.status(400).json({
+                    errors: [{ msg: 'An error occured while updating status' }]
                 });
             }
         });

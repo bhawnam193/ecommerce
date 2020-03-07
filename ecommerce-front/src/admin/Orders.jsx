@@ -2,14 +2,55 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
-import { listOrders } from './apiAdmin';
+import { listOrders, getStatusValues, updateOrderStatus } from './apiAdmin';
 import moment from 'moment';
 
 const Orders = () => {
 
     const [orders, setOrders] = useState([]);
+    const [status, setStatus] = useState([]);
 
     const { user, token } = isAuthenticated();
+
+    const showStatus = o => {
+        return (
+            <div className="form-group">
+                <h3 className="mark mb-4"> Status: {o.status}</h3>
+                <select className="form-control" onChange={e => handelStatusChange(e, o.ID)}>
+                    <option>Update Satus</option>
+                    {status.length && status.map((s, i) => {
+                        return (<option key={i} value={s}>{s}</option>)
+                    })}
+                </select>
+            </div>
+        )
+    }
+
+    const handelStatusChange = (event, orderID) => {
+        if (event.target.value) {
+            updateOrderStatus(orderID, event.target.value, user.id, token)
+            .then(res => {
+                if (res.error) {
+                    console.log(res.error)
+                } else {
+                    if (res.updated) {
+                        loadOrders();
+                    }
+                }
+            });
+        }
+    };
+
+    const loadStatusValues = () => {
+        getStatusValues(user.id, token)
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    setStatus(data[0].Type.replace("enum(", "").replace(")", "").replace(/'/g, "").split(','));
+                }
+            });
+    }
 
     const loadOrders = () => {
         listOrders(user.id, token)
@@ -24,6 +65,7 @@ const Orders = () => {
 
     useEffect(() => {
         loadOrders();
+        loadStatusValues();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -53,7 +95,7 @@ const Orders = () => {
         return (
             <div className="input-group mb-2 mr-sm-2">
                 <div className="input-group-prepend">
-                    <div className="input-group-text">{key}</div>
+                    <div className="input-group-text"><strong>{key}</strong></div>
                 </div>
                 <input type="text" value={value} className="form-control" readOnly />
             </div>
@@ -75,7 +117,7 @@ const Orders = () => {
                                 </h2>
                                 <ul className="list-group mb-2">
                                     <li className="list-group-item">
-                                        <strong>Status:</strong> {order.status}
+                                        {showStatus(order)}
                                     </li>
                                     <li className="list-group-item">
                                         <strong>Transaction ID:</strong> {order.transaction_id}
