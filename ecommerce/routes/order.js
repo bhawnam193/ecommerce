@@ -5,9 +5,9 @@ const { requireSignIn, isAuth } = require('../controllers/auth');
 
 const { userByID } = require('../controllers/user');
 
-const { create } = require('../controllers/order');
+const { create, addOrderToUserHistory } = require('../controllers/order');
 
-router.post('/order/create/:userID', requireSignIn, isAuth, create);
+router.post('/order/create/:userID', requireSignIn, isAuth,addOrderToUserHistory, create);
 
 router.param('userID', userByID);
 

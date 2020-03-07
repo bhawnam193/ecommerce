@@ -41,6 +41,8 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
         setData({ ...data, address: event.target.value });
     };
 
+    let deliveryAddress = data.address;
+    
     const buy = () => {
         setData({ loading: true });
         //send the nonce to the server
@@ -66,7 +68,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                             products: products,
                             transaction_id: res.transaction.id,
                             amount: res.transaction.amount,
-                            address: data.address
+                            address: deliveryAddress
                         }
                         createOrder(userId, token, createOrderData)
                             .then(resp => {

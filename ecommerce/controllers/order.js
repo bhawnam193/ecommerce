@@ -26,3 +26,19 @@ exports.create = (req, res) => {
         });
     }
 }
+
+
+exports.addOrderToUserHistory = (req, res, next) => {
+	let history = [];
+
+	req.body.order.products.forEach((item) => {
+		history.push({
+			id: item.id,
+			name: item.name,
+			category: item.category,
+			quantity: item.count,
+			transaction_id: req.body.order.transaction_id,
+			amount: req.body.order.amount
+		});
+	});
+}
