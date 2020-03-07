@@ -27,18 +27,65 @@ exports.create = (req, res) => {
     }
 }
 
+exports.decreaseQuantity = (req, res, next) => {
+	
+	let products = req.body.order.products;
 
-exports.addOrderToUserHistory = (req, res, next) => {
-	let history = [];
+	for(i = 0; i<products.length; i++) {
+		try {
+	        var sql = `UPDATE products
+						  SET quantity = quantity - ${products[i].count}, sold = sold + ${products[i].count}`;
 
-	req.body.order.products.forEach((item) => {
-		history.push({
-			id: item.id,
-			name: item.name,
-			category: item.category,
-			quantity: item.count,
-			transaction_id: req.body.order.transaction_id,
-			amount: req.body.order.amount
-		});
-	});
-}
+	        con.query(sql, function(err, result) {
+
+	            if (err) throw err;
+
+	            if (result.affectedRows) {
+	                //do nothing
+	            } else {
+	                return res.status(400).json({
+	                    errors: [{ msg: 'An error occured while updating product' }]
+	                });
+	            }
+	        });
+	    } catch (err) {
+	        return res.status(422).json({
+	            errors: err.array()
+	        });
+	    }
+	}
+
+	next();
+};
+
+exports.listOrders = (req, res) => {
+	
+	try {
+        var sql = `SELECT
+					  o.*,
+					  u.name,
+					  u.email
+					FROM
+					  orders o
+					  JOIN users u
+					WHERE
+					  o.user = u.id`;
+
+        con.query(sql, function(err, result) {
+
+            if (err) throw err;
+
+            if (result.length) {
+                return res.json(result);
+            } else {
+                return res.status(400).json({
+                    errors: [{ msg: 'An error occured while updating product' }]
+                });
+            }
+        });
+    } catch (err) {
+        return res.status(422).json({
+            errors: err.array()
+        });
+    }
+};

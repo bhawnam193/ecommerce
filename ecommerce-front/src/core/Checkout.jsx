@@ -48,6 +48,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
         //send the nonce to the server
         //nonce = data.instance.requestPaymentMethod()
         let nonce;
+        // eslint-disable-next-line no-unused-vars
         let getNonce = data.instance.requestPaymentMethod()
             .then(data => {
                 console.log(data);
