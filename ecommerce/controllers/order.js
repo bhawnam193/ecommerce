@@ -1,7 +1,13 @@
 const con = require('../db');
 
+const arrayToObject = (array, keyField) =>
+    array.reduce((obj, item) => {
+        obj[item[keyField]] = item
+        return obj
+    }, {});
+
 exports.create = (req, res) => {
-	const prod = JSON.stringify(Object.assign({}, req.body.order.products));
+    const prod = JSON.stringify(req.body.order.products);
 
     try {
         var sql = `INSERT INTO
@@ -12,8 +18,8 @@ exports.create = (req, res) => {
 
             if (err) throw err;
 
-            if (result.length) {
-                return res.status(200).json({ order_create: true });
+            if (result.affectedRows) {
+                return res.status(200).json({ order_created: true });
             } else {
                 return res.status(400).json({
                     errors: [{ msg: 'An error occured while creating order' }]
@@ -28,39 +34,39 @@ exports.create = (req, res) => {
 }
 
 exports.decreaseQuantity = (req, res, next) => {
-	
-	let products = req.body.order.products;
 
-	for(i = 0; i<products.length; i++) {
-		try {
-	        var sql = `UPDATE products
+    let products = req.body.order.products;
+
+    for (i = 0; i < products.length; i++) {
+        try {
+            var sql = `UPDATE products
 						  SET quantity = quantity - ${products[i].count}, sold = sold + ${products[i].count}`;
 
-	        con.query(sql, function(err, result) {
+            con.query(sql, function(err, result) {
 
-	            if (err) throw err;
+                if (err) throw err;
 
-	            if (result.affectedRows) {
-	                //do nothing
-	            } else {
-	                return res.status(400).json({
-	                    errors: [{ msg: 'An error occured while updating product' }]
-	                });
-	            }
-	        });
-	    } catch (err) {
-	        return res.status(422).json({
-	            errors: err.array()
-	        });
-	    }
-	}
+                if (result.affectedRows) {
+                    //do nothing
+                } else {
+                    return res.status(400).json({
+                        errors: [{ msg: 'An error occured while updating product' }]
+                    });
+                }
+            });
+        } catch (err) {
+            return res.status(422).json({
+                errors: err.array()
+            });
+        }
+    }
 
-	next();
+    next();
 };
 
 exports.listOrders = (req, res) => {
-	
-	try {
+
+    try {
         var sql = `SELECT
 					  o.*,
 					  u.name,
@@ -69,7 +75,9 @@ exports.listOrders = (req, res) => {
 					  orders o
 					  JOIN users u
 					WHERE
-					  o.user = u.id`;
+					  o.user = u.id
+					ORDER BY
+  					  o.ID DESC`;
 
         con.query(sql, function(err, result) {
 
