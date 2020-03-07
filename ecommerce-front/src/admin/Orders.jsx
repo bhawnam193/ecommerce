@@ -48,12 +48,26 @@ const Orders = () => {
             )
         }
     }
+
+    const showInput = (key, value) => {
+        return (
+            <div className="input-group mb-2 mr-sm-2">
+                <div className="input-group-prepend">
+                    <div className="input-group-text">{key}</div>
+                </div>
+                <input type="text" value={value} className="form-control" readOnly />
+            </div>
+        )
+    };
+
     return (
         <Layout title="Orders" description={`G'day ${user.name}, you can manage all the orders here`}>
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     {showOrdersLength()}
                     {orders.length && orders.map((order, oIndex) => {
+
+                        const products = JSON.parse(order.products);
                         return (
                             <div className="mt-5" key={oIndex} style={{borderBottom: '5px solid indigo'}}>
                                 <h2 className="mb-5">
@@ -80,8 +94,15 @@ const Orders = () => {
                                     </li>
                                 </ul>
 
-                                <h3 className="mt-4 mb-4 font-italic"> Total Products: {JSON.parse(order.products).length}</h3>
-                                {console.log(JSON.parse(order.products))}
+                                <h3 className="mt-4 mb-4 font-italic"> Total Products: {products.length}</h3>
+                                {products.map((p, i) => {
+                                    return <div className="mb-4" key={i} style={{padding: '20px', border: '1px solid indigo'}}>
+                                        {showInput('Product Name', p.name)}
+                                        {showInput('Product Price', p.price)}
+                                        {showInput('Product Count', p.count)}
+                                        {showInput('Product ID', p.ID)}
+                                    </div>
+                                })}
                             </div>
                         )
                     })}
