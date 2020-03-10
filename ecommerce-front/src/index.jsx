@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import Routes from './Routes';
 import * as serviceWorker from './serviceWorker';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 ReactDOM.render(<Routes />, document.getElementById('root'));
 
 
