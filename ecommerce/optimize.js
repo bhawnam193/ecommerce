@@ -15,9 +15,9 @@ fs.readdir(directoryPath, function (err, files) {
         // Do whatever you want to do with the file
         
         if (file.indexOf('.jpg') !== -1) {
-            console.log(directoryPath + '\\' + file);
-                        sharp(directoryPath + '\\' + file).resize(250, 300)
-    .toFile(directoryPath + '\\' + file.split('.')[0] + '.webp', (err, info) => { console.log(info) ; console.log(err)});    
+            console.log(directoryPath + '/' + file);
+                        sharp(directoryPath + '/' + file).resize(250, 300)
+    .toFile(directoryPath + '/' + file.split('.')[0] + '.webp', (err, info) => { console.log(info) ; console.log(err)});    
         }
     });
 });
