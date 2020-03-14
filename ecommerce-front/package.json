@@ -20,7 +20,7 @@
     "react-scripts": "3.4.0"
   },
   "scripts": {
-    "start": "env-cmd -f .env.development react-scripts start",
+    "start:local": "env-cmd -f .env.development react-scripts start",
     "build:prod": "env-cmd -f .env.production react-scripts build",
     "build:local": "env-cmd -f .env.development react-scripts build",
     "run:local": "env-cmd -f .env.development node server.js",
@@ -34,6 +34,7 @@
       "not op_mini all"
     ],
     "development": [
+      "ie 11",
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
