@@ -21,10 +21,10 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.development react-scripts start",
-    "build": "env-cmd -f .env.production react-scripts build",
-    "build-local": "env-cmd -f .env.development react-scripts build",
-    "start-node": "env-cmd -f .env.development node server.js",
-    "run": "env-cmd -f .env.production pm2 start server.js",
+    "build:prod": "env-cmd -f .env.production react-scripts build",
+    "build:local": "env-cmd -f .env.development react-scripts build",
+    "run:local": "env-cmd -f .env.development node server.js",
+    "run:prod": "env-cmd -f .env.production pm2 start server.js",
     "eject": "react-scripts eject"
   },
   "browserslist": {

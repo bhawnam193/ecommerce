@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "env-cmd -f .env.development nodemon app.js",
-    "build": "env-cmd -f .env.production nodemon app.js"
+    "start:local": "env-cmd -f .env.development nodemon app.js",
+    "start:prod": "env-cmd -f .env.production pm2 start app.js"
   },
   "keywords": [],
   "author": "",
