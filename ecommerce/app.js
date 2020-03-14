@@ -9,7 +9,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 app.use(morgan('dev'));
-
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());

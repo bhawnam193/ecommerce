@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { userByID, read, update } = require('../controllers/user');
+const { userByID, read } = require('../controllers/user');
 
 const { requireSignIn, isAuth, isAdmin } = require('../controllers/auth');
 
@@ -14,6 +14,5 @@ router.get('/secret/:userID', requireSignIn, isAuth, isAdmin, (req, res) => {
 
 router.get('/user/:userID', requireSignIn, isAuth, read);
 
-router.put('/user/:userID', requireSignIn, isAuth, update);
 
 module.exports = router;

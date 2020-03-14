@@ -4,7 +4,9 @@ import Routes from './Routes';
 import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+// eslint-disable-next-line no-unused-vars
 import $ from 'jquery';
+// eslint-disable-next-line no-unused-vars
 import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
