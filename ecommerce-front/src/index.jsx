@@ -10,6 +10,10 @@ import $ from 'jquery';
 import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
+if (!window.location.host.startsWith("www")){
+    window.location = window.location.protocol + "//" + "www." + window.location.host + window.location.pathname;
+}
+
 ReactDOM.render(<Routes />, document.getElementById('root'));
 
 
