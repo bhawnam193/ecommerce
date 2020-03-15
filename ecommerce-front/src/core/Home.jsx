@@ -3,6 +3,7 @@ import Layout from './Layout';
 import { getProducts } from './apiCore';
 import ProductCard from './ProductCard';
 import Search from './Search';
+import {Helmet} from "react-helmet";
 
 const Home = () => {
 
@@ -52,7 +53,11 @@ const Home = () => {
     };
 
     return (
-        <Layout title="Home Page" description="node ecommerce app">
+        <Layout title="Home Page" description="Node React E-commerce App">
+            <Helmet>
+                <title>Home | E-commerce App</title>
+                <meta name="description" content="This is the homepage of the E-commerce App" />
+            </Helmet>
             <Search />
             {showError()}
             <h2 className="mb-4">Best Sellers</h2>

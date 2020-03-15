@@ -7,6 +7,7 @@ import { getCategories } from '../admin/apiAdmin';
 import Checkbox from './Checkbox';
 import prices from './fixedPrices';
 import RadioBox from './RadioBox';
+import {Helmet} from "react-helmet";
 
 const Shop = () => {
 
@@ -132,6 +133,10 @@ const Shop = () => {
 
     return (
         <Layout title="Shop Page" description="Search and find books of your choice">
+            <Helmet>
+                <title>Shop | E-commerce App</title>
+                <meta name="description" content="This is the shop page of the E-commerce App" />
+            </Helmet>
             <div className="row">
                 <div className="col-md-3 filter-sidebar">
                     <h4>Filter by categories</h4>

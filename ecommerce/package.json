@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start:local": "set HTTPS=true SSL_CRT_FILE=cert.cer SSL_KEY_FILE=cert.key&&env-cmd -f .env.development nodemon app.js",
+    "start:local": "env-cmd -f .env.development nodemon app.js",
     "start:prod": "env-cmd -f .env.production pm2 start app.js"
   },
   "keywords": [],
