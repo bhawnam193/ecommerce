@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 const Dashboard = () => {
 
@@ -49,6 +50,10 @@ const Dashboard = () => {
 
     return (
         <Layout title="Dashboard" description={`G'day ${name}!`}>
+        	<Helmet>
+                <title>Dashboard | E-commerce App</title>
+                <meta name="description" content="User Dashboard for the E-commerce App" />
+            </Helmet>
 			<div className="row">
 				<div className="col-3">
 					{userLinks()}

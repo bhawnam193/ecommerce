@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../core/Layout';
 import { signup } from '../auth';
+import { Helmet } from "react-helmet";
 
 const Signup = () => {
 
@@ -87,6 +88,10 @@ const Signup = () => {
 
     return (
         <Layout title="Sign Up" description="Sign up for node-react E-commerce app">
+            <Helmet>
+                <title>Sign-up | E-commerce App</title>
+                <meta name="description" content="Sign-up for the E-commerce App" />
+            </Helmet>
             {showSuccess()}
             {showError()}
             {signUpForm()}

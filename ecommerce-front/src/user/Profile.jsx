@@ -69,6 +69,14 @@ const Profile = (props) => {
         )
     };
 
+    const showError = (error) => {
+        if (error) {
+            return (
+
+            )
+        }
+    };
+
     const profileUpdate = (name, email, password) => {
         return (
             <form>

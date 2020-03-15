@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Layout from '../core/Layout';
 import { signin, authenticate, isAuthenticated } from '../auth';
+import { Helmet } from "react-helmet";
 
 const Signin = () => {
 
@@ -81,12 +82,10 @@ const Signin = () => {
     const signInForm = () => {
         return (
             <form className="col-md-8 col-md-offset-2">
-                
                 <div className="form-group">
                     <label className="text-muted">Email</label>
                     <input type="email" onChange={handleChange('email')} className="form-control" value={email}/>
                 </div>
-
                 <div className="form-group">
                     <label className="text-muted">Password</label>
                     <input type="password" onChange={handleChange('password')} className="form-control" value={password}/>
@@ -98,6 +97,10 @@ const Signin = () => {
 
     return (
         <Layout title="Sign In" description="Sign In for node-react E-commerce app">
+            <Helmet>
+                <title>Sign-in | E-commerce App</title>
+                <meta name="description" content="Sign-in to the E-commerce App" />
+            </Helmet>
             {showLoading()}
             {showError()}
             {signInForm()}
