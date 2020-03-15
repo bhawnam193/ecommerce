@@ -72,7 +72,9 @@ const Profile = (props) => {
     const showError = (error) => {
         if (error) {
             return (
+                <div>
 
+                </div>
             )
         }
     };
