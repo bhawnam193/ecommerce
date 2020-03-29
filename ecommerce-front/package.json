@@ -23,7 +23,7 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start:local": "set HTTPS=true&&env-cmd -f .env.development react-scripts start",
+    "start:local": "env-cmd -f .env.development react-scripts start",
     "build:prod": "env-cmd -f .env.production react-scripts build",
     "build:local": "env-cmd -f .env.development react-scripts build",
     "run:local": "env-cmd -f .env.development node server.js",
