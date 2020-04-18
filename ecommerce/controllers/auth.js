@@ -124,7 +124,7 @@ exports.update = (req, res) => {
                   ${sql}
                 WHERE
                   id = ${req.profile.id}`;
-
+        console.log(sql);
         con.query(sql, function(err, result) {
             if (err) throw err;
             if (result.affectedRows) {
