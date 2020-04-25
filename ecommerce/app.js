@@ -12,11 +12,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-//routes for authentication
-const authRouter = require('./routes/auth');
-app.use("/api", authRouter);
-
-//routes for users
+//routes for users & authentication
 const userRouter = require('./routes/user');
 app.use("/api", userRouter);
 
