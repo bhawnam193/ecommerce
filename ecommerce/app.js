@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const expressValidator = require('express-validator')
-require('dotenv').config();
 
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
