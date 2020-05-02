@@ -34,11 +34,7 @@ export const updateUser = (userID, token, user) => {
 
 export const updateUserLocal = (user, next) => {
     if (typeof window !== 'undefined') {
-        //if (localStorage.getItem('jwt')) {
-            //let auth = JSON.parse(localStorage.getItem('jwt'));
-            //auth.user = user;
-            localStorage.setItem('jwt', JSON.stringify(user));
-            next();
-        //}
+        localStorage.setItem('jwt', JSON.stringify(user));
+        next();
     }
 }
