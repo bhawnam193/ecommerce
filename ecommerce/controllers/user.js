@@ -118,8 +118,6 @@ exports.requireSignIn = expressJwt({
 
 //middleware to check of the user is authenticated
 exports.isAuth = (req, res, next) => {
-    //console.log(req.profile);
-    console.log(req.auth);
     let user = req.profile && req.auth && req.profile.id == req.auth.id;
     if (!user) {
         return res.status(403).json({
@@ -162,7 +160,7 @@ exports.update = (req, res) => {
               ${sql}
             WHERE
               id = ${req.profile.id}`;
-    console.log(sql);
+
     con.query(sql, function(err, result) {
         if (err) throw err;
         if (result.affectedRows) {
@@ -176,3 +174,21 @@ exports.update = (req, res) => {
         }
     });
 };
+
+
+exports.purchaseHistory = (req, res) => {
+
+    sql = `SELECT * FROM orders WHERE user = '${req.profile.id}' ORDER BY orders.ID DESC `;
+
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        if (result.length) {
+            return res.status(200).json({ orders: result });
+        } else {
+            return res.status(400).json({
+                orders: [],
+                not_found: true
+            });
+        }
+    });
+}

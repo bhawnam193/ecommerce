@@ -23,6 +23,7 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.local react-scripts start",
+    "start:net": "env-cmd -f .env.network react-scripts start",
     "build": "env-cmd -f .env.production react-scripts build",
     "run": "env-cmd -f .env.production pm2 start server.js"
   },

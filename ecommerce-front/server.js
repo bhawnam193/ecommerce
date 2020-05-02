@@ -17,5 +17,5 @@ app.get('*', function(req, res) {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`React Front End is running on port ${PORT}`);
+    console.log(`React frontend is running on port ${PORT}`);
 });
