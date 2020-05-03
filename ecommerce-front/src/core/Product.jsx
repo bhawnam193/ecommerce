@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import Layout from './Layout';
 import { read, relatedProducts } from './apiCore';
 import { API } from '../config';
-import moment from 'moment';
+import * as moment from "moment/moment.js"
 import ProductCard from './ProductCard';
 
 const Product = (props) => {

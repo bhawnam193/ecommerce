@@ -10,8 +10,8 @@ exports.create = (req, res) => {
 
     try {
         var sql = `INSERT INTO
-					  orders (products, transaction_id, amount, address, user)
-					VALUES ('${prod}', '${req.body.order.transaction_id}', '${req.body.order.amount}', '${req.body.order.address}', ${req.profile.id})`;
+                      orders (products, transaction_id, amount, address, user)
+                    VALUES ('${prod}', '${req.body.order.transaction_id}', '${req.body.order.amount}', '${req.body.order.address}', ${req.profile.id})`;
 
         con.query(sql, function(err, result) {
 
@@ -39,7 +39,7 @@ exports.decreaseQuantity = (req, res, next) => {
     for (i = 0; i < products.length; i++) {
         try {
             var sql = `UPDATE products
-						  SET quantity = quantity - ${products[i].count}, sold = sold + ${products[i].count}`;
+                          SET quantity = quantity - ${products[i].count}, sold = sold + ${products[i].count}`;
 
             con.query(sql, function(err, result) {
 
@@ -67,16 +67,16 @@ exports.listOrders = (req, res) => {
 
     try {
         var sql = `SELECT
-					  o.*,
-					  u.name,
-					  u.email
-					FROM
-					  orders o
-					  JOIN users u
-					WHERE
-					  o.user = u.id
-					ORDER BY
-  					  o.ID DESC`;
+                      o.*,
+                      u.name,
+                      u.email
+                    FROM
+                      orders o
+                      JOIN users u
+                    WHERE
+                      o.user = u.id
+                    ORDER BY
+                      o.ID DESC`;
 
         con.query(sql, function(err, result) {
 
@@ -101,8 +101,8 @@ exports.getStatusValues = (req, res) => {
 
     try {
         var sql = `SHOW COLUMNS
-					FROM
-					  orders LIKE 'status'`;
+                    FROM
+                      orders LIKE 'status'`;
 
         con.query(sql, function(err, result) {
 
@@ -124,7 +124,7 @@ exports.getStatusValues = (req, res) => {
 };
 
 exports.updateOrderStatus = (req, res) => {
-	try {
+    try {
         var sql = `UPDATE orders SET status = '${req.body.status}' WHERE ID = ${req.order}`;
 
         con.query(sql, function(err, result) {
@@ -132,7 +132,7 @@ exports.updateOrderStatus = (req, res) => {
             if (err) throw err;
 
             if (result.affectedRows) {
-                return res.json({updated: true});
+                return res.json({ updated: true });
             } else {
                 return res.status(400).json({
                     errors: [{ msg: 'An error occured while updating status' }]

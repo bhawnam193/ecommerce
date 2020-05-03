@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
 import { listOrders, getStatusValues, updateOrderStatus } from './apiAdmin';
-import moment from 'moment';
+import * as moment from "moment/moment.js"
 
 const Orders = () => {
 

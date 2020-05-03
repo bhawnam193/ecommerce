@@ -4,7 +4,7 @@ import { isAuthenticated } from '../auth';
 import { fetchOrders } from './apiUser';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
-import moment from 'moment';
+import * as moment from "moment/moment.js"
 
 const Dashboard = () => {
 

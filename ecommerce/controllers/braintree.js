@@ -8,7 +8,6 @@ const gateway = braintree.connect({
 });
 
 exports.generateToken = (req, res) => {
-
     gateway.clientToken.generate({}, function(err, response) {
         if (err) {
             return res.status(500).json(err);
@@ -23,7 +22,6 @@ exports.processPayment = (req, res) => {
     let amountFromClient = req.body.amount;
 
     //charge the user
-
     let newTransaction = gateway.transaction.sale({
         amount: amountFromClient,
         paymentMethodNonce: nonceFromClient,
