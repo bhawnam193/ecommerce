@@ -1,7 +1,7 @@
 const con = require('../db');
 const crypto = require('crypto');
 const { validationResult } = require('express-validator');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 
