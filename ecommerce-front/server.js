@@ -6,7 +6,9 @@ const app = express();
 app.use(compression());
 
 //force domain to be the url set in the env file
-app.use(require('express-force-domain')(process.env.PUBLIC_URL));
+if ( process.env.PUBLIC_URL ) {
+	app.use(require('express-force-domain')(process.env.PUBLIC_URL));	
+}
 
 app.use(express.static(path.join(__dirname, 'build')));
 
